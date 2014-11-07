@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Tránsito Perú</string>
+    <string name="app_version">Versión 1.0</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="links">Consultas Online</string>
+    <string name="menu_main">Tránsito Perú</string>
+    <string name="infracciones_conductor">Infracciones de los Conductores</string>
+    <string name="infracciones_peaton">Infracciones de los Peatones</string>
+    <string name="infracciones_licencias">Infracciones y Sanciones</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_goto">Ir a</string>
+    <string name="action_favorites">Favoritos</string>
+    <string name="action_search">Buscar</string>
+    <string name="action_notes">Notas</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_help">Ayuda</string>
+    <string name="search_hint">Busca aqui</string>
+    <string name="add_favorites">Agregar a Favoritos</string>
+    <string name="del_favorites">Eliminar de Favoritos</string>
+    <string name="add_note">Agregar una Nota</string>
+    <string name="show_note">Ver Nota</string>
+    <string name="edit_note">Modificar Nota</string>
+    <string name="copy_clipboard">Copiar al portapapeles</string>
+    <string name="del_notes">Eliminar Nota</string>
+    <string name="title_activity_pdf">PdfActivity</string>
+    <string name="title_activity_pdfviewer">Pdfviewer</string>
+    <string name="title_activity_main_activity2">MainActivity2</string>
+    <string name="title_activity_links">LinksActivity</string>
+    <string name="title_section_infracciones1">Muy Graves</string>
+    <string name="title_section_infracciones2">Graves</string>
+    <string name="title_section_infracciones3">Leves</string>
+    <string name="title_section_senales1">Reglamentarias</string>
+    <string name="title_section_senales2">Preventivas</string>
+    <string name="title_section_senales3">Informativas</string>
+    <string name="title_activity_gallery">Señales de Tránsito</string>
+    <string name="title_section_infraccioneslicencias1">Escuelas de Conductores</string>
+    <string name="title_section_infraccioneslicencias2">Establecimientos de Salud</string>
+    <string name="title_section_infraccioneslicencias3">Profesionales Integrantes del Staff Médico</string>
+    <string name="title_activity_my_pdf_viewer">myPdfViewerActivity</string>
+
+</resources>

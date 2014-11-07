@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="pe.com.codespace.transito" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+        <activity
+            android:name="pe.com.codespace.transito.SplashScreenActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.TextActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.WebviewActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="pe.com.codespace.transito.ReglamentoTransitoActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.ReglamentoVehicularActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.ReglamentoLicenciasActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.FavoritosActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.SearchResultsTransitoActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.AddNoteActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.NotesActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.LinksActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.InfraccionesTransitoActivity"
+            android:label="@string/infracciones_conductor"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.InfraccionesLicenciasActivity"
+            android:label="@string/infracciones_licencias"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="pe.com.codespace.transito.GalleryActivity"
+            android:label="@string/title_activity_gallery"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name=".myHtmlReaderActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+        </activity>
+    </application>
+
+</manifest>
