@@ -1,0 +1,64 @@
+body{
+    font-size: 1.2em;
+}
+
+h3, h4 , h5{
+	font-weight:bold;
+}
+
+table{
+    width: 100%;
+}
+
+table, th, td{
+    border: 1px solid #000;
+    border-collapse: collapse;
+    font-size: 1em;
+    text-align: center;    
+}
+
+img{
+    max-width: 100%;
+}
+
+.div_centrar{
+    text-align: center;
+}
+
+
+.div_centrar table{
+    margin: 0 auto;
+    text-align: left;
+}
+
+.left {
+    text-align: left;
+}
+
+.header {
+    font-weight: bold;
+}
+
+
+.td10 {    
+    width: 10%;
+}
+
+.td40 {
+    width: 40;
+}
+
+@media (max-width: 944px) {
+    body{
+        font-size: 1.2em;
+    }
+    td{
+        font-size: 0.9em;        
+    }
+    h3{
+        font-size: 1.4em;
+    }
+    h4{
+        font-size: 1.2em;
+    }
+}

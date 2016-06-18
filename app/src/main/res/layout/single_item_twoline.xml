@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,28 +9,30 @@
         android:id="@+id/tvNumberItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Numero Articulo"
+        android:text="@string/dumptext"
         android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tvTitleItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Titulo del Articulo"
+        android:layout_below="@+id/tvNumberItem"
+        android:text="@string/dumptext"
         android:textStyle="bold"
-        android:paddingLeft="3dp"
-        android:textSize="@dimen/text_title_article_size"
-        android:textColor="@color/text_color1"/>
+        android:paddingLeft="@dimen/padding_small"
+        android:paddingRight="@dimen/padding_small"
+        android:textSize="@dimen/textsize_medium"
+        android:textColor="@color/primaryText"/>
 
     <TextView
         android:id="@+id/tvTextItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Contenido del Articulo"
-        android:layout_below="@android:id/text1"
-        android:paddingLeft="3dp"
-        android:paddingRight="3dp"
-        android:textSize="@dimen/text_content_article_size"
-        android:textColor="@color/text_color2"/>
+        android:text="@string/dumptext"
+        android:layout_below="@id/tvTitleItem"
+        android:paddingRight="@dimen/padding_small"
+        android:paddingLeft="@dimen/padding_small"
+        android:textSize="@dimen/textsize_medium"
+        android:textColor="@color/primaryText"/>
 
-</LinearLayout>
+</RelativeLayout>

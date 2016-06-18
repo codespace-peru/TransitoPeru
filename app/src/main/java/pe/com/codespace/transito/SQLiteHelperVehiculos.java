@@ -15,11 +15,11 @@ import java.io.OutputStream;
 import java.lang.reflect.Array;
 
 /**
- * Created by Carlos on 7/01/14.
+ * Creado por Carlos el 7/01/14.
  */
 public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
     private final Context myContext;
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "vehiculos.db";
     private static final String DATABASE_PATH = "databases/";
     private static File DATABASE_FILE = null;
@@ -51,6 +51,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             }
         }
         catch(SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -88,29 +89,29 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
         }
     }
 
-    public void copyDatabase()  {
+    private void copyDatabase()  {
         AssetManager assetManager = myContext.getResources().getAssets();
         InputStream myInput = null;
         OutputStream myOutput = null;
         try{
-            myInput = assetManager.open(DATABASE_PATH +DATABASE_NAME);
+            myInput = assetManager.open(DATABASE_PATH + DATABASE_NAME);
             myOutput = new FileOutputStream(DATABASE_FILE);
             byte[] buffer = new byte[1024];
-            int read=0;
+            int read;
             while ((read = myInput.read(buffer)) != -1) {
                 myOutput.write(buffer, 0, read);
             }
         }
-        catch (IOException ex){
+        catch (IOException ignored){
         }
         finally {
             if(myInput != null){
                 try{ myInput.close(); }
-                catch(IOException ex){ }
+                catch(IOException ignored){ }
             }
             if(myOutput!=null){
                 try{ myOutput.close(); }
-                catch (IOException ex){ }
+                catch (IOException ignored){ }
             }
             setDataBaseVersion();
             mInvalidDatabaseFile = false;
@@ -124,6 +125,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             db.execSQL("PRAGMA user_version=" + DATABASE_VERSION);
         }
         catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -134,7 +136,14 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
     }
 
     private void doUpgrade(){
-
+        try{
+            myContext.deleteDatabase(DATABASE_NAME);
+            copyDatabase();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            throw ex;
+        }
     }
 
     public String[][] getSecciones(){
@@ -142,7 +151,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
         try{
             db = getReadableDatabase();
             Cursor cursor = db.rawQuery("select numSeccion, nombreSeccion, descripSeccion from secciones",null);
-            String[][] arrayOfString = (String[][])Array.newInstance(String.class, new int[] { cursor.getCount(),3 });
+            String[][] arrayOfString = (String[][])Array.newInstance(String.class, cursor.getCount(),3);
             int i = 0;
             if (cursor.moveToFirst()) {
                 while ( !cursor.isAfterLast() ) {
@@ -157,6 +166,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             return arrayOfString;
         }
         catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -171,7 +181,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
         try{
             db = getWritableDatabase();
             Cursor cursor = db.rawQuery("select numTitulo, nombreTitulo, descripTitulo from titulos where numSeccion = ?", new String[] {String.valueOf(seccion)});
-            String[][] arrayOfString = (String[][])Array.newInstance(String.class, new int[] { cursor.getCount(),3 });
+            String[][] arrayOfString = (String[][])Array.newInstance(String.class, cursor.getCount(),3);
             int i = 0;
             if (cursor.moveToFirst()) {
                 while ( !cursor.isAfterLast() ) {
@@ -186,6 +196,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             return arrayOfString;
         }
         catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -200,7 +211,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
         try{
             db = getWritableDatabase();
             Cursor cursor = db.rawQuery("select numCapitulo, nombreCapitulo, descripCapitulo from capitulos WHERE numSeccion = ? AND numTitulo = ?", new String[] {String.valueOf(seccion), String.valueOf(titulo)});
-            String[][] arrayOfString = (String[][])Array.newInstance(String.class, new int[] { cursor.getCount(),3 });
+            String[][] arrayOfString = (String[][])Array.newInstance(String.class, cursor.getCount(),3);
             int i = 0;
             if (cursor.moveToFirst()) {
                 while ( !cursor.isAfterLast() ) {
@@ -215,39 +226,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             return arrayOfString;
         }
         catch (SQLiteException ex){
-            throw ex;
-        }
-        finally {
-            if(db != null && db.isOpen()){
-                db.close();
-            }
-        }
-    }
-
-    public String[][] getSubCapitulos(int seccion, int titulo, int capitulo) {
-        SQLiteDatabase db = null;
-        String[] array = new String[3];
-        array[0] = String.valueOf(seccion);
-        array[1] = String.valueOf(titulo);
-        array[2] = String.valueOf(capitulo);
-        try{
-            db = getWritableDatabase();
-            Cursor cursor = db.rawQuery("select numSubcapitulo, nombreSubcapitulo, descripSubcapitulo from subcapitulos WHERE numSeccion = ? AND numTitulo = ? AND numcapitulo=?", array);
-            String[][] arrayOfString = (String[][])Array.newInstance(String.class, new int[] { 3, cursor.getCount() });
-            int i = 0;
-            if (cursor.moveToFirst()) {
-                while ( !cursor.isAfterLast() ) {
-                    arrayOfString[0][i] = cursor.getString(0);
-                    arrayOfString[1][i] = cursor.getString(1);
-                    arrayOfString[2][i] = cursor.getString(2);
-                    i++;
-                    cursor.moveToNext();
-                }
-            }
-            cursor.close();
-            return arrayOfString;
-        }
-        catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -263,12 +242,10 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             db = getReadableDatabase();
             Cursor cursor = db.rawQuery("select nombreSeccion, descripSeccion from secciones WHERE numSeccion = ?", new String[] {String.valueOf(seccion)});
             String[] arrayOfString = (String[]) Array.newInstance(String.class, new int[]{2});
-            int i = 0;
             if (cursor.moveToFirst()) {
                 while ( !cursor.isAfterLast() ) {
                     arrayOfString[0] = cursor.getString(0);
                     arrayOfString[1] = cursor.getString(1);
-                    i++;
                     cursor.moveToNext();
                 }
             }
@@ -276,6 +253,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             return arrayOfString;
         }
         catch (SQLiteException ex){
+            ex.printStackTrace();
            throw ex;
         }
         finally {
@@ -294,12 +272,10 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             array[1] = String.valueOf(titulo);
             Cursor cursor = db.rawQuery("select nombreTitulo, descripTitulo from titulos WHERE numSeccion = ? AND numTitulo = ?", array);
             String[] arrayOfString = (String[]) Array.newInstance(String.class, new int[]{2});
-            int i = 0;
             if (cursor.moveToFirst()) {
                 while ( !cursor.isAfterLast() ) {
                     arrayOfString[0] = cursor.getString(0);
                     arrayOfString[1] = cursor.getString(1);
-                    i++;
                     cursor.moveToNext();
                 }
             }
@@ -307,6 +283,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             return arrayOfString;
         }
         catch (SQLiteException ex){
+            ex.printStackTrace();
            throw ex;
         }
         finally {
@@ -324,14 +301,13 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             array[0] = String.valueOf(seccion);
             array[1] = String.valueOf(titulo);
             array[2] = String.valueOf(capitulo);
-            Cursor cursor = db.rawQuery("select numCapitulo, nombreCapitulo from capitulos WHERE numSeccion = ? AND numTitulo = ? AND numCapitulo = ?", array);
+            //Cursor cursor = db.rawQuery("select numCapitulo, nombreCapitulo from capitulos WHERE numSeccion = ? AND numTitulo = ? AND numCapitulo = ?", array);
+            Cursor cursor = db.rawQuery("select nombreCapitulo, descripCapitulo from capitulos WHERE numSeccion = ? AND numTitulo = ? AND numCapitulo = ?", array);
             String[] arrayOfString = (String[]) Array.newInstance(String.class, new int[]{2});
-            int i = 0;
             if (cursor.moveToFirst()) {
                 while ( !cursor.isAfterLast() ) {
                     arrayOfString[0] = cursor.getString(0);
                     arrayOfString[1] = cursor.getString(1);
-                    i++;
                     cursor.moveToNext();
                 }
             }
@@ -339,6 +315,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             return arrayOfString;
         }
         catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -353,9 +330,8 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
         SQLiteDatabase db = null;
         try{
             db = getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT numSeccion, numTitulo, numCapitulo, nombreArticulo, descripArticulo, textArticulo FROM articulos WHERE numArticulo = ?", new String[] {String.valueOf(art)});
+            Cursor cursor = db.rawQuery("SELECT numTitulo, numCapitulo, numSeccion, nombreArticulo, descripArticulo, textArticulo FROM articulos WHERE numArticulo = ?", new String[] {String.valueOf(art)});
             String[] arrayOfString = (String[]) Array.newInstance(String.class, new int[]{6});
-            int i = 0;
             if (cursor.moveToFirst()) {
                 while ( !cursor.isAfterLast() ) {
                     arrayOfString[0] = cursor.getString(0);
@@ -364,7 +340,6 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
                     arrayOfString[3] = cursor.getString(3);
                     arrayOfString[4] = cursor.getString(4);
                     arrayOfString[5] = cursor.getString(5);
-                    i++;
                     cursor.moveToNext();
                 }
             }
@@ -372,6 +347,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             return arrayOfString;
         }
         catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -390,7 +366,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             array[1] = String.valueOf(titulo);
             array[2] = String.valueOf(capitulo);
             Cursor cursor = db.rawQuery("select numArticulo, nombreArticulo, descripArticulo,textArticulo from articulos WHERE numSeccion=? AND numTitulo=? AND numCapitulo=? ORDER BY numArticulo", array);
-            String[][] arrayOfString = (String[][]) Array.newInstance(String.class, new int[]{cursor.getCount(),4});
+            String[][] arrayOfString = (String[][]) Array.newInstance(String.class, cursor.getCount(),4);
 
             int i = 0;
             if (cursor.moveToFirst()) {
@@ -407,6 +383,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             return arrayOfString;
         }
         catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -418,23 +395,21 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
 
    public boolean es_favorito(float art) {
         SQLiteDatabase db = null;
+        Cursor cursor = null;
         try{
             db = getReadableDatabase();
-            Cursor cursor = db.rawQuery("select numArticulo from FAVORITOS where numArticulo = ? ", new String[]{String.valueOf(art)});
-            if(cursor.moveToFirst()){
-                if(cursor.getInt(0) == art)
-                    return true;
-                else
-                    return false;
-            }
-            else
-                return false;
+            cursor = db.rawQuery("select numArticulo from FAVORITOS where numArticulo = ? ", new String[]{String.valueOf(art)});
+            return cursor.moveToFirst() && cursor.getInt(0) == art;
         }catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
             if(db != null && db.isOpen()){
                 db.close();
+            }
+            if(cursor!=null){
+                cursor.close();
             }
         }
    }
@@ -444,7 +419,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
         try{
             db = getReadableDatabase();
             Cursor cursor = db.rawQuery("SELECT numArticulo, nombreArticulo, descripArticulo, textArticulo FROM FAVORITOS ORDER BY numArticulo",null);
-            String[][] arrayOfString = (String[][])Array.newInstance(String.class, new int[] {cursor.getCount(),4});
+            String[][] arrayOfString = (String[][])Array.newInstance(String.class, cursor.getCount(),4);
             int i = 0;
             if (cursor.moveToFirst()) {
                 while ( !cursor.isAfterLast() ) {
@@ -459,6 +434,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             cursor.close();
             return arrayOfString;
         }catch(SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -486,6 +462,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             }
             return flag;
         } catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -507,6 +484,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             }
             return flag;
         } catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -521,7 +499,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
         try{
             db = getReadableDatabase();
             Cursor cursor = db.rawQuery("SELECT numArticulo, nombreArticulo, descripArticulo, nota FROM NOTAS ORDER BY numArticulo", null);
-            String[][] arrayOfString = (String[][])Array.newInstance(String.class, new int[] {cursor.getCount(),4});
+            String[][] arrayOfString = (String[][])Array.newInstance(String.class, cursor.getCount(),4);
             int i = 0;
             if (cursor.moveToFirst()) {
                 while ( !cursor.isAfterLast() ) {
@@ -536,6 +514,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             cursor.close();
             return arrayOfString;
         }catch(SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -547,24 +526,21 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
 
    public boolean hay_nota(float art) {
         SQLiteDatabase db = null;
+       Cursor cursor=null;
         try{
             db = getReadableDatabase();
-            Cursor cursor = db.rawQuery("select numArticulo from NOTAS where numArticulo = ? ", new String[]{String.valueOf(art)});
-            if(cursor.moveToFirst()){
-                if(cursor.getInt(0)  == art )
-                    return true;
-                else
-                    return false;
-            }
-            else
-                return false;
+            cursor = db.rawQuery("select numArticulo from NOTAS where numArticulo = ? ", new String[]{String.valueOf(art)});
+            return cursor.moveToFirst() && cursor.getInt(0) == art;
         }catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
             if(db != null && db.isOpen()){
                 db.close();
             }
+            if(cursor!=null)
+                cursor.close();
         }
    }
 
@@ -574,13 +550,11 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             db = getReadableDatabase();
             Cursor cursor = db.rawQuery("SELECT nombreArticulo, descripArticulo, nota FROM NOTAS WHERE numArticulo = ?", new String[] {String.valueOf(art)});
             String[] arrayOfString = (String[]) Array.newInstance(String.class, new int[]{3});
-            int i=0;
             if (cursor.moveToFirst()) {
                 while ( !cursor.isAfterLast() ) {
                     arrayOfString[0] = cursor.getString(0);
                     arrayOfString[1] = cursor.getString(1);
                     arrayOfString[2] = cursor.getString(2);
-                    i++;
                     cursor.moveToNext();
                 }
             }
@@ -588,6 +562,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             return arrayOfString;
         }
         catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -614,6 +589,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             }
             return flag;
         } catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -637,6 +613,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             }
             return flag;
         } catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -658,6 +635,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             }
             return flag;
         } catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {
@@ -683,7 +661,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             db = getReadableDatabase();
             Cursor cursor = db.rawQuery(sqlLike, null);
             int j = 0;
-            String[][] arrayOfString = (String[][])Array.newInstance(String.class, new int[] { cursor.getCount(),4 });
+            String[][] arrayOfString = (String[][])Array.newInstance(String.class, cursor.getCount(),4);
             if(cursor.moveToFirst()){
                 while(!cursor.isAfterLast()){
                     arrayOfString[j][0] = cursor.getString(0);
@@ -698,6 +676,7 @@ public class SQLiteHelperVehiculos extends SQLiteOpenHelper {
             return arrayOfString;
         }
         catch (SQLiteException ex){
+            ex.printStackTrace();
             throw ex;
         }
         finally {

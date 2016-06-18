@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/padding_medium"
+    android:paddingBottom="@dimen/padding_medium">
+
+    <TextView
+        android:id="@+id/tvGroupExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:paddingEnd="@dimen/padding_small"
+        android:paddingRight="@dimen/padding_small"
+        android:textStyle="bold"
+        android:textColor="@color/primaryText"
+        android:text="@string/dumptext"
+        android:textSize="@dimen/textsize_xmedium"/>
+
+    <TextView
+        android:id="@+id/tvItemExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:paddingStart="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:paddingRight="@dimen/padding_small"
+        android:paddingEnd="@dimen/padding_small"
+        android:textColor="@color/primaryText"
+        android:textSize="@dimen/textsize_medium"
+        android:text="@string/dumptext"/>
+</LinearLayout>

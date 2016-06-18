@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Carlos on 08/04/2014.
+ * Creado por Carlos el 08/04/2014.
  */
 public class Objeto {
     public int Nivel;//1=Primer nivel ,2=Segundo nivel, 3=Tercer nivel
@@ -12,5 +12,5 @@ public class Objeto {
     public String Title;
     public String Description;
     public List<Objeto> children;
-    public Objeto(){ children = new ArrayList<Objeto>(); }
+    public Objeto(){ children = new ArrayList<>(); }
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Carlos on 20/04/2014.
+ * Creado por Carlos on 20/04/2014.
  */
 public class NLevelAdapter extends BaseAdapter {
     List<NLevelItem> list;
@@ -69,7 +69,7 @@ public class NLevelAdapter extends BaseAdapter {
     }
 
     public List<NLevelListItem> filterItems(){
-        List<NLevelListItem> tempfiltered = new ArrayList<NLevelListItem>();
+        List<NLevelListItem> tempfiltered = new ArrayList<>();
         OUTER: for(NLevelListItem item:list){
             if(item.getParent()==null){
                 tempfiltered.add(item);

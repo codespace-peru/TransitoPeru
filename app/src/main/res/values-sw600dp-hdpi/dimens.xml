@@ -1,0 +1,24 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="min_ancho_links">38dp</dimen>
+
+    <dimen name="margin_small">25dp</dimen>
+    <dimen name="margin_medium">35dp</dimen>
+    <dimen name="margin_large">45dp</dimen>
+    <dimen name="padding_small">7dp</dimen>
+    <dimen name="padding_medium">15dp</dimen>
+    <dimen name="padding_large">22dp</dimen>
+
+    <dimen name="divider_height">2dp</dimen>
+
+    <dimen name="textsize_xsmall">15sp</dimen>
+    <dimen name="textsize_small">17sp</dimen>
+    <dimen name="textsize_medium">19sp</dimen>
+    <dimen name="textsize_xmedium">21sp</dimen>
+    <dimen name="textsize_large">24sp</dimen>
+    <dimen name="textsize_xlarge">26sp</dimen>
+
+    <dimen name="add_note_size">250dp</dimen>
+
+</resources>

@@ -3,7 +3,7 @@ package pe.com.codespace.transito;
 import android.view.View;
 
 /**
- * Created by Carlos on 20/04/2014.
+ * Creado por Carlos on 20/04/2014.
  */
 public interface NLevelListItem {
     public boolean isExpanded();

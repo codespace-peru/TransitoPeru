@@ -1,71 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_text">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="50dp">
+    tools:context="pe.com.codespace.transito.ActivityAddNote">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/title_app_main"
-        android:textColor="@color/text_color3"
-        android:gravity="center_horizontal"
-        android:text="AGREGAR NOTA"
-        android:id="@+id/addnote_title"
-        android:textStyle="bold"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:layout_marginTop="5dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/title_divider">
-    </View>
+    <include android:id="@+id/myToolbar" layout="@layout/toolbar" />
 
     <TextView
         android:id="@+id/tvAddNota"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_title_article_size"
-        android:text="Nota"
+        android:layout_below="@+id/myToolbar"
+        android:textSize="@dimen/textsize_xmedium"
+        android:text="@string/dumptext"
         android:textStyle="bold"
-        android:textColor="@color/text_color2"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:layout_marginTop="10dp"/>
+        android:textColor="@color/primaryText"
+        android:paddingTop="@dimen/padding_medium"/>
 
     <EditText
         android:id="@+id/edtAddNota"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="@dimen/add_note_size"
+        android:layout_below="@+id/tvAddNota"
+        android:layout_above="@+id/adViewAddNote"
+        android:layout_marginTop="@dimen/margin_medium"
         android:ems="10"
-        android:gravity="left|top"
+        android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:background="@color/blanco"
-        android:textSize="@dimen/text_content_article_size"
-        android:hint="Ingrese sus anotaciones aquí...">
+        android:background="@color/white"
+        android:textSize="@dimen/textsize_medium"
+        android:hint="@string/anotaciones">
     </EditText>
-</LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViewAddNote"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true">
-        <com.google.android.gms.ads.AdView android:id="@+id/adViewAddNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            ads:adUnitId="ca-app-pub-4549935446415170/9666248846"
-            ads:adSize="BANNER"/>
-    </LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        ads:adSize="SMART_BANNER"/>
+
 </RelativeLayout>

@@ -18,17 +18,27 @@
                 android:title="@string/action_goto"
                 android:icon="@drawable/ic_action_go"
                 android:orderInCategory="3"
-                appcompat:showAsAction="always|withText" />
+                appcompat:showAsAction="ifRoom|withText" />
             <item android:id="@+id/action_favorites"
                 android:title="@string/action_favorites"
                 android:icon="@drawable/ic_action_important"
                 android:orderInCategory="4"
-                appcompat:showAsAction="always|withText" />
+                appcompat:showAsAction="ifRoom|withText" />
             <item android:id="@+id/action_notes"
                 android:title="@string/action_notes"
                 android:icon="@drawable/ic_action_edit"
                 android:orderInCategory="5"
-                appcompat:showAsAction="always|withText" />
+                appcompat:showAsAction="ifRoom|withText" />
+            <item android:id="@+id/action_share"
+                android:title="@string/action_share"
+                android:icon="@drawable/ic_action_share"
+                android:orderInCategory="6"
+                appcompat:showAsAction="ifRoom|withText" />
+            <item android:id="@+id/action_rate"
+                android:title="@string/action_rate"
+                android:icon="@drawable/ic_action_good"
+                android:orderInCategory="7"
+                appcompat:showAsAction="ifRoom|withText" />
         </menu>
     </item>
 </menu>
